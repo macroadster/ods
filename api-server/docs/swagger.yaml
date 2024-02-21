@@ -1,0 +1,58 @@
+basePath: /api/v1
+definitions:
+  common.Event:
+    properties:
+      data:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample data collection server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Data Collector API
+  version: "1.0"
+paths:
+  /auth:
+    post:
+      consumes:
+      - application/json
+      description: login
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: API Authentication callback
+      tags:
+      - auth
+  /data:
+    post:
+      consumes:
+      - application/json
+      description: Write Data
+      parameters:
+      - description: Message Event
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/common.Event'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Write Data API
+      tags:
+      - data
+swagger: "2.0"
