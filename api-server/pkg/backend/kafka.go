@@ -10,13 +10,11 @@ import (
 // the topic and broker address are initialized as constants
 const (
 	topic          = "message-log"
-	broker1Address = "r-kafka:9092"
-	broker2Address = "r-kafka:9092"
-	broker3Address = "r-kafka:9092"
 )
 
 var user = os.Getenv("KAFKA_USER")
 var password = os.Getenv("KAFKA_PASSWORD")
+var brokerAddress = os.Getenv("KAFKA_BROKER")
 
 func Produce(ctx context.Context, event common.Event) {
 
@@ -27,7 +25,7 @@ func Produce(ctx context.Context, event common.Event) {
   }
 	// intialize the writer with the broker addresses, and the topic
 	w := kafka.Writer{
-    Addr:       kafka.TCP(broker1Address, broker2Address, broker3Address),
+    Addr:       kafka.TCP(brokerAddress),
 		Topic:      topic,
     Balancer:   &kafka.Hash{},
     Transport:  sharedTransport,
