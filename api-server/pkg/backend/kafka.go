@@ -9,7 +9,7 @@ import (
 )
 // the topic and broker address are initialized as constants
 const (
-	topic          = "message-log"
+	topic = "message-log"
 )
 
 var user = os.Getenv("KAFKA_USER")
@@ -23,21 +23,21 @@ func Produce(ctx context.Context, event common.Event) {
   sharedTransport := &kafka.Transport{
     SASL: mechanism,
   }
-	// intialize the writer with the broker addresses, and the topic
-	w := kafka.Writer{
+  // intialize the writer with the broker addresses, and the topic
+  w := kafka.Writer{
     Addr:       kafka.TCP(brokerAddress),
-		Topic:      topic,
+    Topic:      topic,
     Balancer:   &kafka.Hash{},
     Transport:  sharedTransport,
-	}
+  }
 
-	err := w.WriteMessages(ctx, kafka.Message{
-		Key: []byte("event"),
-		// create an arbitrary message payload for the value
-		Value: []byte(event.Data),
-	})
-	if err != nil {
-		panic("could not write message " + err.Error())
-	}
+  err := w.WriteMessages(ctx, kafka.Message{
+    Key: []byte("event"),
+    // create an arbitrary message payload for the value
+    Value: []byte(event.Data),
+  })
+  if err != nil {
+    panic("could not write message " + err.Error())
+  }
   w.Close()
 }
