@@ -4,7 +4,7 @@ import (
   "context"
   "github.com/segmentio/kafka-go"
   "github.com/segmentio/kafka-go/sasl/plain"
-	"ds/collector/pkg/common"
+	"ds/api-server/pkg/common"
   "os"
 )
 // the topic and broker address are initialized as constants

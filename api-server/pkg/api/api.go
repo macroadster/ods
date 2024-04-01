@@ -2,8 +2,8 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"ds/collector/pkg/backend"
-	"ds/collector/pkg/common"
+	"ds/api-server/pkg/backend"
+	"ds/api-server/pkg/common"
 	"context"
 	"net/http"
 )
@@ -20,9 +20,9 @@ import (
 func Login(c *gin.Context) {
 	userID, _ := c.Get("UserUID")
 	if userID != nil {
-		c.JSON(200, gin.H{})
+		c.JSON(http.StatusOK, gin.H{})
 	} else {
-		c.JSON(302, gin.H{})
+		c.JSON(http.StatusMovedPermanently, gin.H{})
 	}
 }
 
@@ -46,12 +46,63 @@ func PostData(c *gin.Context) {
 	}
 	ctx := context.Background()
 	go backend.Produce(ctx, event)
-	c.JSON(200, gin.H{})
+	c.JSON(http.StatusOK, gin.H{})
 	//} else {
 	//	c.JSON(302, gin.H{})
 	//}
 }
 
+// CreatePipeline godoc
+// @Summary Create Pipeline
+// @Schemes
+// @Description	Create a pipeline with Airflow DAG
+// @Tags pipeline
+// @Accept  json
+// @Produce json
+// @Param id path string true "pipeline ID"
+// @Success 200 {string} committed
+// @Router   /pipeline/{id} [post]
+func CreatePipeline(c *gin.Context) {
+  id := c.Param("id")
+	ctx := context.Background()
+	go backend.CreateDAG(ctx, id)
+	c.JSON(http.StatusOK, gin.H{})
+}
+
+// GetPipeline godoc
+// @Summary Get Pipeline
+// @Schemes
+// @Description	View a pipeline with Airflow DAG
+// @Tags pipeline
+// @Accept  json
+// @Produce json
+// @Param id path string true "pipeline ID"
+// @Success 200 {string} committed
+// @Router   /pipeline/{id} [get]
+func GetPipeline(c *gin.Context) {
+	id := c.Param("id")
+	ctx := context.Background()
+	go backend.GetDAG(ctx, id)
+	c.JSON(http.StatusOK, gin.H{})
+}
+
+// DeletePipeline godoc
+// @Summary Delete Pipeline
+// @Schemes
+// @Description	Delete a pipeline with Airflow DAG
+// @Tags pipeline
+// @Accept  json
+// @Produce json
+// @Param id path string true "pipeline ID"
+// @Success 200 {string} committed
+// @Router   /pipeline/{id} [delete]
+func DeletePipeline(c *gin.Context) {
+	id := c.Param("id")
+	ctx := context.Background()
+	go backend.DeleteDAG(ctx, id)
+	c.JSON(http.StatusOK, gin.H{})
+}
+
 func Home(c *gin.Context) {
-	c.JSON(200, gin.H{})
+	c.JSON(http.StatusOK, gin.H{})
 }

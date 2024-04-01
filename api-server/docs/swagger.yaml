@@ -55,4 +55,65 @@ paths:
       summary: Write Data API
       tags:
       - data
+  /pipeline/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a pipeline with Airflow DAG
+      parameters:
+      - description: pipeline ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete Pipeline
+      tags:
+      - pipeline
+    get:
+      consumes:
+      - application/json
+      description: View a pipeline with Airflow DAG
+      parameters:
+      - description: pipeline ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get Pipeline
+      tags:
+      - pipeline
+    post:
+      consumes:
+      - application/json
+      description: Create a pipeline with Airflow DAG
+      parameters:
+      - description: pipeline ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Create Pipeline
+      tags:
+      - pipeline
 swagger: "2.0"

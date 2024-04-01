@@ -1,8 +1,8 @@
 package main
 
 import (
-	docs "ds/collector/docs"
-	"ds/collector/pkg/api"
+	docs "ds/api-server/docs"
+	"ds/api-server/pkg/api"
 	//"net/url"
   //"os"
 	"github.com/gin-contrib/sessions"
@@ -84,6 +84,12 @@ func main() {
 			data.POST("", api.PostData)
 			//data.POST("", middleware, api.PostData)
 		}
+		pipeline := v1.Group("/pipeline")
+     {
+			 pipeline.POST("/:id", api.CreatePipeline)
+			 pipeline.GET("/:id", api.GetPipeline)
+			 pipeline.DELETE("/:id", api.DeletePipeline)
+		 }
 	}
 	r.GET("/", api.Home)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))

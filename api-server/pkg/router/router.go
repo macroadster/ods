@@ -10,11 +10,11 @@ import (
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 
-	"ds/collector/pkg/auth/authenticator"
-	"ds/collector/pkg/auth/callback"
-	"ds/collector/pkg/auth/login"
-	"ds/collector/pkg/auth/logout"
-	"ds/collector/pkg/auth/user"
+	"ds/api-server/pkg/auth/authenticator"
+	"ds/api-server/pkg/auth/callback"
+	"ds/api-server/pkg/auth/login"
+	"ds/api-server/pkg/auth/logout"
+	"ds/api-server/pkg/auth/user"
 )
 
 // New registers the routes and returns the router.
